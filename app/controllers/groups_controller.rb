@@ -22,6 +22,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.user = current_user
     if @group.save
+      current_user.join!(@group)
       redirect_to groups_path
     else
       render :new
@@ -72,7 +73,7 @@ class GroupsController < ApplicationController
 
     redirect_to group_path(@group)
   end
-  
+
   private
 
   def find_group_and_check_permission
